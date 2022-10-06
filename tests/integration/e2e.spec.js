@@ -32,6 +32,8 @@ test('creating reports', async () => {
   expect(job.id).toBeDefined();
   expect(job.url).toBeDefined();
 
+  console.log(`Job creation successful: ${job.url}`);
+
   const s = new Readable();
   s.push('hello!');
   s.push(null);
