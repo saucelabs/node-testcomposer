@@ -9,7 +9,7 @@ beforeAll(() => {
   expect(process.env.SAUCE_ACCESS_KEY).toBeDefined()
 
   client = new TestComposer({
-    region: Region.USWest1,
+    region: 'us-west-1',
     username: process.env.SAUCE_USERNAME,
     accessKey: process.env.SAUCE_ACCESS_KEY,
     headers: {'User-Agent': `node-testcomposer/0.0.0`}
