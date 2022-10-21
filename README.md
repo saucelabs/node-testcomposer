@@ -10,7 +10,7 @@ Sauce Labs SDK for the Test-Composer API.
 const {Region, TestComposer} = require('@saucelabs/testcomposer');
 
 const client = new TestComposer({
-  region: Region.USWest1,
+  region: 'us-west-1',
   username: process.env.SAUCE_USERNAME,
   accessKey: process.env.SAUCE_ACCESS_KEY,
   headers: {'User-Agent': `your-fancy-reporter/1.2.3`}
@@ -37,7 +37,7 @@ console.log(job.url); // the full URL of the job
 const Readable = require('stream').Readable;
 
 const client = new TestComposer({
-  region: Region.USWest1,
+  region: 'us-west-1',
   username: process.env.SAUCE_USERNAME,
   accessKey: process.env.SAUCE_ACCESS_KEY,
   headers: {'User-Agent': `your-fancy-reporter/1.2.3`}

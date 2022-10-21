@@ -3,23 +3,19 @@ import FormData from "form-data";
 import * as stream from "stream";
 
 // The Sauce Labs region.
-export enum Region {
-  USWest1 = 'us-west-1',
-  EUCentral1 = 'eu-central-1',
-  Staging = 'staging'
-}
+export type Region = 'us-west-1' | 'eu-central-1' | 'staging';
 
 const apiURLMap = new Map<Region, string>([
-    [Region.USWest1, 'https://api.us-west-1.saucelabs.com/v1/testcomposer'],
-    [Region.EUCentral1, 'https://api.eu-central-1.saucelabs.com/v1/testcomposer'],
-    [Region.Staging, 'https://api.staging.saucelabs.net/v1/testcomposer']
+    ['us-west-1', 'https://api.us-west-1.saucelabs.com/v1/testcomposer'],
+    ['eu-central-1', 'https://api.eu-central-1.saucelabs.com/v1/testcomposer'],
+    ['staging', 'https://api.staging.saucelabs.net/v1/testcomposer']
   ]
 );
 
 const appURLMap = new Map<Region, string>([
-    [Region.USWest1, 'https://app.saucelabs.com'],
-    [Region.EUCentral1, 'https://app.eu-central-1.saucelabs.com'],
-    [Region.Staging, 'https://app.staging.saucelabs.net']
+    ['us-west-1', 'https://app.saucelabs.com'],
+    ['eu-central-1', 'https://app.eu-central-1.saucelabs.com'],
+    ['staging', 'https://app.staging.saucelabs.net']
   ]
 );
 
@@ -82,7 +78,7 @@ export class TestComposer {
 
   constructor(opts: Options) {
     this.opts = opts;
-    this.url = apiURLMap.get(opts.region) || Region.USWest1;
+    this.url = apiURLMap.get(opts.region) || 'us-west-1';
     this.requestConfig = {auth: {username: this.opts.username, password: this.opts.accessKey}, headers: opts.headers};
   }
 
