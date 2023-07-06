@@ -107,7 +107,7 @@ console.log(job.url); // the full URL of the job
 
 ## Upload Log for Selenium job
 
-The minimum `log.json` file to fullfill the web UI:
+The minimum `log.json` file to fulfill the web UI:
 
 ```json
 [
