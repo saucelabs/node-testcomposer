@@ -37,7 +37,7 @@ console.log(job.url); // the full URL of the job
 
 ## Upload log for JavaScript Batch Frameworks
 
-The minimum `sauce-test-report.json` file to fullfill the web UI:
+The minimum `sauce-test-report.json` file to fulfill the web UI:
 
 ```json
 {
