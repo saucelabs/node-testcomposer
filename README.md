@@ -111,7 +111,7 @@ The minimum `log.json` file to populate the command list on Sauce Labs web UI:
 
 ```json
 [
-	{
+  {
     "screenshot": null,
     "suggestion_values": [
  
