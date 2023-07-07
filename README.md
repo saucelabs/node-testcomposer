@@ -35,7 +35,7 @@ console.log(job.id); // the job ID
 console.log(job.url); // the full URL of the job
 ```
 
-## Upload log for JavaScript Batch Frameworks
+### Upload log for JavaScript Batch Frameworks
 
 The minimum `sauce-test-report.json` file to fulfill the web UI:
 
@@ -80,8 +80,8 @@ To upload `sauce-test-report.json`:
 const uploads = await client.uploadAssets(
   job.id,
   [{
-    filename: "log.json",
-    data: fs.createReadStream("log.json")
+    filename: "sauce-test-report.json",
+    data: fs.createReadStream("sauce-test-report.json")
   }]
 );
 // Upon success, the array `uploads.uploaded` will equal in length to the number of assets you intended to upload.
@@ -105,7 +105,7 @@ console.log(job.id); // the job ID
 console.log(job.url); // the full URL of the job
 ```
 
-## Upload Log for Selenium job
+### Upload Log for Selenium job
 
 The minimum `log.json` file to fulfill the web UI:
 
@@ -114,22 +114,18 @@ The minimum `log.json` file to fulfill the web UI:
 	{
     "screenshot": null,
     "suggestion_values": [
-
+ 
     ],
-    "start_time": 1688673799.516,
     "request": {
-      "using": "css selector",
-      "value": "[id=\"onetrust-accept-btn-handler\"]"
+
     },
     "result": {
-      "message": "no such element",
-      "error": "no such element"
+
     },
-    "duration": 0.01900005340576172,
     "path": "element",
-    "HTTPStatus": 404,
+    "HTTPStatus": 200,
     "method": "POST",
-    "statusCode": 1
+    "statusCode": 0 // zero indicates passed, non-zero indicates failed
   }
 ]
 ```
