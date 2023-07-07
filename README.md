@@ -37,7 +37,7 @@ console.log(job.url); // the full URL of the job
 
 ### Upload Log
 
-In order to view your test results in the SauceLabs web app, you must upload a test report file along with the report created in the step above. You can use the [sauce-json-reporter](https://github.com/saucelabs/sauce-json-reporter-js) library to generate the test report programatically or manually create the json file according to the report schema defined [here](https://github.com/saucelabs/sauce-json-reporter-js/blob/main/api/schema.json).
+In order to view your test results in the SauceLabs web app, you must upload a test report file along with the report created in the step above. You can use the [sauce-json-reporter](https://github.com/saucelabs/sauce-json-reporter-js) library to generate the test report programmatically or manually create the json file according to the report schema defined [here](https://github.com/saucelabs/sauce-json-reporter-js/blob/main/api/schema.json).
 
 ```json
 {
