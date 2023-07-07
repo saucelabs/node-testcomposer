@@ -4,7 +4,7 @@ Sauce Labs SDK for the Test-Composer API.
 
 # Usage
 
-## Initial TestComposer Client
+## Initialize TestComposer Client
 ```javascript
 const { TestComposer } = require('@saucelabs/testcomposer');
 
