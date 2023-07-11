@@ -80,7 +80,7 @@ export class TestComposer {
 
   constructor(opts: Options) {
     this.opts = opts;
-    this.url = apiURLMap.get(opts.region) || 'us-west-1';
+    this.url = apiURLMap.get(opts.region) || apiURLMap.get('us-west-1') as string;
     this.requestConfig = {auth: {username: this.opts.username, password: this.opts.accessKey}, headers: opts.headers};
   }
 
