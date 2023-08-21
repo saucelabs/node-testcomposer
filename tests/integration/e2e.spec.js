@@ -1,4 +1,4 @@
-const {Region, TestComposer} = require('../../src/index');
+const { TestComposer } = require('../../src/index');
 const Readable = require('stream').Readable;
 
 let client;
@@ -34,11 +34,45 @@ test('creating JavaScript framework reports', async () => {
 
   console.log(`Job creation successful: ${job.url}`);
 
+  const content = `{
+    "status": "passed",
+    "attachments": [],
+    "suites": [
+      {
+        "name": "somegroup",
+        "status": "passed",
+        "metadata": {},
+        "suites": [
+          {
+            "name": "somefile.test.js",
+            "status": "passed",
+            "metadata": {},
+            "suites": [],
+            "attachments": [],
+            "tests": [
+              {
+                "name": "yay",
+                "status": "passed",
+                "duration": 123,
+                "startTime": "2023-07-06T22:03:19.591Z",
+                "attachments": [],
+                "metadata": {}
+              }
+            ]
+          }
+        ],
+        "attachments": [],
+        "tests": []
+      }
+    ],
+    "metadata": {}
+  }`;
+
   const s = new Readable();
-  s.push('hello!');
+  s.push(content);
   s.push(null);
 
-  const uploads = await client.uploadAssets(job.id, [{filename: "console.log", data: s}]);
+  const uploads = await client.uploadAssets(job.id, [{filename: "sauce-test-report.json", data: s}]);
   expect(uploads.uploaded.length).toBe(1);
 });
 
@@ -59,22 +93,16 @@ test('creating selenium reports', async () => {
 
   console.log(`Job creation successful: ${job.url}`);
 
-  const content = `
+  const content = `[
   {
     "screenshot": null,
-    "suggestion_values": [
- 
-    ],
-    "request": {
-
-    },
-    "result": {
-
-    },
+    "suggestion_values": [],
+    "request": {},
+    "result": {},
     "path": "element",
     "HTTPStatus": 200,
     "method": "POST",
-    "statusCode": 0 // 0 for passed status, non-zero for failed
+    "statusCode": 0
   }
 ]`;
 
