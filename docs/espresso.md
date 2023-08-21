@@ -9,7 +9,7 @@ const job = await client.createReport({
   startTime: new Date().toISOString(),
   endTime: new Date().toISOString(),
   framework: "espresso",
-  platformName: "Mac 12",
+  platformName: "Linux",
   deviceName: "Android GoogleAPI Emulator",
   platformVersion: "12.0."
 });
@@ -38,7 +38,7 @@ The minimum `native-log.json` file to populate the command list on Sauce Labs we
       "failure_reason": null,
       "name": "dashboardProductTest",
       "status": "success",
-      "status_code": 0,
+      "status_code": 0, // 0 for passed status, non-zero for failed
       "stream": null,
       "test_number": "1"
     }
