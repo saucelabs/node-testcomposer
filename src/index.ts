@@ -36,8 +36,12 @@ export interface CreateReportRequest {
   browserName?: string
   // Optional browser version.
   browserVersion?: string
-  // OS Name and Version, e.g. 'Windows 11'.
+  // Optional device name, e.g. virtual device name: 'Android GoogleAPI Emulator' and 'iPhone 13 Simulator'.
+  deviceName?: string
+  // OS name and optional version, e.g. 'Windows 11', 'Android' and 'iOS'.
   platformName: string
+  // Optional platform version.
+  platformVersion?: string
   // Name of the test framework.
   framework: string
   // Version of the test framework.
