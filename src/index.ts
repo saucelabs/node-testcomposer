@@ -40,7 +40,7 @@ export interface CreateReportRequest {
   deviceName?: string
   // OS Name and Version, e.g. 'Windows 11'.
   platformName: string
-  // Optional platform version, mainly for emulator or simulator.
+  // Optional platform version, but mandatory for emulator and simulator testing.
   platformVersion?: string
   // Name of the test framework.
   framework: string
