@@ -9,7 +9,7 @@ const job = await client.createReport({
   startTime: new Date().toISOString(),
   endTime: new Date().toISOString(),
   framework: "xcuitest",
-  platformName: "iOS",
+  platformName: "Mac 12",
   deviceName: "iPhone 11 Simulator",
   platformVersion: "16.2",
 });

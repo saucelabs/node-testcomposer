@@ -9,7 +9,7 @@ const job = await client.createReport({
   startTime: new Date().toISOString(),
   endTime: new Date().toISOString(),
   framework: "espresso",
-  platformName: "Android",
+  platformName: "Mac 12",
   deviceName: "Android GoogleAPI Emulator",
   platformVersion: "12.0."
 });
