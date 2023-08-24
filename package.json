@@ -1,6 +1,6 @@
 {
   "name": "@saucelabs/testcomposer",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Sauce Labs SDK for the Test-Composer API",
   "main": "lib/index.js",
   "scripts": {
