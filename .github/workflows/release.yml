@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node version
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version-file: '.nvmrc'
           cache: 'npm'
 
       - name: Install dependencies
