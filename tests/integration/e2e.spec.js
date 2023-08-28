@@ -1,4 +1,5 @@
 const { TestComposer } = require('../../src/index');
+const fs = require('fs');
 const Readable = require('stream').Readable;
 
 let client;
@@ -131,7 +132,8 @@ test('creating Espresso reports', async () => {
 
   console.log(`Job creation successful: ${job.url}`);
 
-  const content = `{
+  const nativeLog = new Readable();
+  nativeLog.push(`{
     "package_name": "com.saucelabs.mydemoapp.android",
     "status": "success",
     "stdout": "I am output",
@@ -144,13 +146,18 @@ test('creating Espresso reports', async () => {
         "test_number": "1"
       }
     ]
-  }`;
-  const s = new Readable();
-  s.push(content);
-  s.push(null);
+  }`);
+  nativeLog.push(null);
 
-  const uploads = await client.uploadAssets(job.id, [{filename: "native-log.json", data: s}]);
-  expect(uploads.uploaded.length).toBe(1);
+  const screenshot = fs.createReadStream('./tests/integration/fixtures/1693247987161_screenshot_first.png')
+
+  const uploads = await client.uploadAssets(job.id,
+    [
+      {filename: "native-log.json", data: nativeLog},
+      {filename: "1693247987161_screenshot_first.png", data: screenshot}
+    ]
+  );
+  expect(uploads.uploaded.length).toBe(2);
 });
 
 test('creating XCUITest reports', async () => {
