@@ -7,6 +7,7 @@ module.exports = {
   },
   root: true,
   ignorePatterns: [
+    "/lib",
     "/tests",
     "/src/**/*.js"
   ],
