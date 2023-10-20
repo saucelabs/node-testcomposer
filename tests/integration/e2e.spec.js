@@ -6,28 +6,28 @@ let client;
 
 beforeAll(() => {
   // Set your credentials!
-  expect(process.env.SAUCE_USERNAME).toBeDefined()
-  expect(process.env.SAUCE_ACCESS_KEY).toBeDefined()
+  expect(process.env.SAUCE_USERNAME).toBeDefined();
+  expect(process.env.SAUCE_ACCESS_KEY).toBeDefined();
 
   client = new TestComposer({
     region: 'us-west-1',
     username: process.env.SAUCE_USERNAME,
     accessKey: process.env.SAUCE_ACCESS_KEY,
-    headers: {'User-Agent': `node-testcomposer/0.0.0`}
-  })
+    headers: { 'User-Agent': `node-testcomposer/0.0.0` },
+  });
 });
 
 test('creating JavaScript framework reports', async () => {
   const job = await client.createReport({
-    name: "node-testcomposer - JS report creation",
+    name: 'node-testcomposer - JS report creation',
     passed: true,
     startTime: new Date().toISOString(),
     endTime: new Date().toISOString(),
-    browserName: "Chrome",
-    browserVersion: "105",
-    framework: "playwright",
-    frameworkVersion: "1.25.0",
-    platformName: "Windows 11"
+    browserName: 'Chrome',
+    browserVersion: '105',
+    framework: 'playwright',
+    frameworkVersion: '1.25.0',
+    platformName: 'Windows 11',
   });
 
   expect(job.id).toBeDefined();
@@ -73,20 +73,22 @@ test('creating JavaScript framework reports', async () => {
   s.push(content);
   s.push(null);
 
-  const uploads = await client.uploadAssets(job.id, [{filename: "sauce-test-report.json", data: s}]);
+  const uploads = await client.uploadAssets(job.id, [
+    { filename: 'sauce-test-report.json', data: s },
+  ]);
   expect(uploads.uploaded.length).toBe(1);
 });
 
 test('creating selenium reports', async () => {
   const job = await client.createReport({
-    name: "node-testcomposer - selenium report creation",
+    name: 'node-testcomposer - selenium report creation',
     passed: true,
     startTime: new Date().toISOString(),
     endTime: new Date().toISOString(),
-    browserName: "Chrome",
-    browserVersion: "105",
-    framework: "webdriver",
-    platformName: "Windows 11"
+    browserName: 'Chrome',
+    browserVersion: '105',
+    framework: 'webdriver',
+    platformName: 'Windows 11',
   });
 
   expect(job.id).toBeDefined();
@@ -111,20 +113,22 @@ test('creating selenium reports', async () => {
   s.push(content);
   s.push(null);
 
-  const uploads = await client.uploadAssets(job.id, [{filename: "log.json", data: s}]);
+  const uploads = await client.uploadAssets(job.id, [
+    { filename: 'log.json', data: s },
+  ]);
   expect(uploads.uploaded.length).toBe(1);
 });
 
 test('creating Espresso reports', async () => {
   const job = await client.createReport({
-    name: "node-testcomposer - espresso report creation",
+    name: 'node-testcomposer - espresso report creation',
     passed: true,
     startTime: new Date().toISOString(),
     endTime: new Date().toISOString(),
-    framework: "espresso",
-    platformName: "Linux",
-    deviceName: "Android GoogleAPI Emulator",
-    platformVersion: "12.0.",
+    framework: 'espresso',
+    platformName: 'Linux',
+    deviceName: 'Android GoogleAPI Emulator',
+    platformVersion: '12.0.',
   });
 
   expect(job.id).toBeDefined();
@@ -149,27 +153,27 @@ test('creating Espresso reports', async () => {
   }`);
   nativeLog.push(null);
 
-  const screenshot = fs.createReadStream('./tests/integration/fixtures/1693247987161_screenshot_first.png')
-
-  const uploads = await client.uploadAssets(job.id,
-    [
-      {filename: "native-log.json", data: nativeLog},
-      {filename: "1693247987161_screenshot_first.png", data: screenshot}
-    ]
+  const screenshot = fs.createReadStream(
+    './tests/integration/fixtures/1693247987161_screenshot_first.png',
   );
+
+  const uploads = await client.uploadAssets(job.id, [
+    { filename: 'native-log.json', data: nativeLog },
+    { filename: '1693247987161_screenshot_first.png', data: screenshot },
+  ]);
   expect(uploads.uploaded.length).toBe(2);
 });
 
 test('creating XCUITest reports', async () => {
   const job = await client.createReport({
-    name: "node-testcomposer - xcuitest report creation",
+    name: 'node-testcomposer - xcuitest report creation',
     passed: true,
     startTime: new Date().toISOString(),
     endTime: new Date().toISOString(),
-    framework: "xcuitest",
-    platformName: "Mac 12",
-    deviceName: "iPhone 11 Simulator",
-    platformVersion: "16.2",
+    framework: 'xcuitest',
+    platformName: 'Mac 12',
+    deviceName: 'iPhone 11 Simulator',
+    platformVersion: '16.2',
   });
 
   expect(job.id).toBeDefined();
@@ -177,9 +181,9 @@ test('creating XCUITest reports', async () => {
 
   console.log(`Job creation successful: ${job.url}`);
 
-  const content = `<testsuites name="All tests" tests="1" failures="0">
-  <testsuite name="DemoAppUITests.DemoAppUIAnotherTests" tests="1" failures="0">
-      <testcase classname="DemoAppUITests.DemoAppUIAnotherTests" name="testExample" time="9.561" />
+  const content = `<testsuites name='All tests' tests='1' failures='0'>
+  <testsuite name='DemoAppUITests.DemoAppUIAnotherTests' tests='1' failures='0'>
+      <testcase classname='DemoAppUITests.DemoAppUIAnotherTests' name='testExample' time='9.561' />
   </testsuite>
 </testsuites>`;
 
@@ -187,6 +191,8 @@ test('creating XCUITest reports', async () => {
   s.push(content);
   s.push(null);
 
-  const uploads = await client.uploadAssets(job.id, [{filename: "junit.xml", data: s}]);
+  const uploads = await client.uploadAssets(job.id, [
+    { filename: 'junit.xml', data: s },
+  ]);
   expect(uploads.uploaded.length).toBe(1);
 });
