@@ -1,91 +1,93 @@
-import axios, {AxiosRequestConfig} from "axios";
-import FormData from "form-data";
-import * as stream from "stream";
+import axios, { AxiosRequestConfig } from 'axios';
+import FormData from 'form-data';
+import * as stream from 'stream';
 
 // The Sauce Labs region.
 export type Region = 'us-west-1' | 'us-east-4' | 'eu-central-1' | 'staging';
 
 const apiURLMap = new Map<Region, string>([
-    ['us-west-1', 'https://api.us-west-1.saucelabs.com/v1/testcomposer'],
-    ['us-east-4', 'https://api.us-east-4.saucelabs.com/v1/testcomposer'],
-    ['eu-central-1', 'https://api.eu-central-1.saucelabs.com/v1/testcomposer'],
-    ['staging', 'https://api.staging.saucelabs.net/v1/testcomposer']
-  ]
-);
+  ['us-west-1', 'https://api.us-west-1.saucelabs.com/v1/testcomposer'],
+  ['us-east-4', 'https://api.us-east-4.saucelabs.com/v1/testcomposer'],
+  ['eu-central-1', 'https://api.eu-central-1.saucelabs.com/v1/testcomposer'],
+  ['staging', 'https://api.staging.saucelabs.net/v1/testcomposer'],
+]);
 
 const appURLMap = new Map<Region, string>([
-    ['us-west-1', 'https://app.saucelabs.com'],
-    ['us-east-4', 'https://app.us-east-4.saucelabs.com'],
-    ['eu-central-1', 'https://app.eu-central-1.saucelabs.com'],
-    ['staging', 'https://app.staging.saucelabs.net']
-  ]
-);
+  ['us-west-1', 'https://app.saucelabs.com'],
+  ['us-east-4', 'https://app.us-east-4.saucelabs.com'],
+  ['eu-central-1', 'https://app.eu-central-1.saucelabs.com'],
+  ['staging', 'https://app.staging.saucelabs.net'],
+]);
 
 export interface Options {
-  region: Region
-  username: string
-  accessKey: string
+  region: Region;
+  username: string;
+  accessKey: string;
   // Providing a User-Agent header is highly recommended.
-  headers?: Record<string, string | number | boolean>
+  headers?: Record<string, string | number | boolean>;
 }
 
 export interface CreateReportRequest {
   // Name of the job.
-  name: string
+  name: string;
   // Optional browser name.
-  browserName?: string
+  browserName?: string;
   // Optional browser version.
-  browserVersion?: string
+  browserVersion?: string;
   // Optional device name, e.g. emulator or simulator: 'Android GoogleAPI Emulator' and 'iPhone 13 Simulator'.
-  deviceName?: string
+  deviceName?: string;
   // OS Name and Version, e.g. 'Windows 11'.
-  platformName: string
+  platformName: string;
   // Optional platform version, only mandatory for emulator and simulator testing.
-  platformVersion?: string
+  platformVersion?: string;
   // Name of the test framework.
-  framework: string
+  framework: string;
   // Version of the test framework.
-  frameworkVersion: string
+  frameworkVersion: string;
   // Did all tests pass?
-  passed: boolean
+  passed: boolean;
   // The job start time in ISO_8601 (YYYY-MM-DDTHH:mm:ss.sssZ)
-  startTime: string
+  startTime: string;
   // The job end time in ISO_8601 ('YYYY-MM-DDTHH:mm:ss.sssZ')
-  endTime: string
+  endTime: string;
   // Optional association with a build name.
-  build?: string
+  build?: string;
   // Optional tags that may help you filter jobs.
-  tags?: string[]
+  tags?: string[];
 }
 
 interface CreateReportResponse {
-  ID: string
+  ID: string;
 }
 
 export interface Asset {
   // The asset will be persisted in Sauce Labs with the given filename.
-  filename: string
+  filename: string;
   // The data backing the file.
-  data: stream.Readable
+  data: stream.Readable;
 }
 
 export interface UploadAssetResponse {
   // List of filenames that were successfully uploaded.
-  uploaded: string[]
+  uploaded: string[];
   // List of error messages, should any files have failed to upload.
-  errors?: string[]
+  errors?: string[];
 }
 
 export class TestComposer {
-  private readonly opts: Options
-  private readonly requestConfig: AxiosRequestConfig
+  private readonly opts: Options;
+  private readonly requestConfig: AxiosRequestConfig;
 
-  private readonly url: string
+  private readonly url: string;
 
   constructor(opts: Options) {
     this.opts = opts;
-    this.url = apiURLMap.get(opts.region) || apiURLMap.get('us-west-1') as string;
-    this.requestConfig = {auth: {username: this.opts.username, password: this.opts.accessKey}, headers: opts.headers};
+    this.url =
+      apiURLMap.get(opts.region) || (apiURLMap.get('us-west-1') as string);
+    this.requestConfig = {
+      auth: { username: this.opts.username, password: this.opts.accessKey },
+      headers: opts.headers,
+    };
   }
 
   /**
@@ -93,10 +95,14 @@ export class TestComposer {
    * @param req Job metadata.
    */
   async createReport(req: CreateReportRequest) {
-    const resp = await axios.post(this.url + '/reports', req, this.requestConfig);
+    const resp = await axios.post(
+      this.url + '/reports',
+      req,
+      this.requestConfig,
+    );
 
     const id = (resp.data as CreateReportResponse).ID;
-    return {id: id, url: appURLMap.get(this.opts.region) + '/tests/' + id};
+    return { id: id, url: appURLMap.get(this.opts.region) + '/tests/' + id };
   }
 
   /**
@@ -107,10 +113,14 @@ export class TestComposer {
   async uploadAssets(jobId: string, assets: Asset[]) {
     const form = new FormData();
     for (const asset of assets) {
-      form.append('file', asset.data, {filename: asset.filename});
+      form.append('file', asset.data, { filename: asset.filename });
     }
 
-    const resp = await axios.put(this.url + `/jobs/${jobId}/assets`, form, this.requestConfig);
+    const resp = await axios.put(
+      this.url + `/jobs/${jobId}/assets`,
+      form,
+      this.requestConfig,
+    );
 
     return resp.data as UploadAssetResponse;
   }

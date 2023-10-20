@@ -9,39 +9,41 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Node version
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - run: npm run lint
+      - name: Lint
+        run: npm run lint
 
-      - run: npm run build
+      - name: Test
+        run: npm run build
+
   integration-tests:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref }}
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Setup Node version
+      - name: Setup Node
         uses: actions/setup-node@v3
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Run Integration Tests
+      - name: Integration Tests
         env:
           SAUCE_USERNAME: ${{secrets.SAUCE_USERNAME}}
           SAUCE_ACCESS_KEY: ${{secrets.SAUCE_ACCESS_KEY}}
