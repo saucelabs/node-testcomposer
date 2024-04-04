@@ -63,6 +63,8 @@ interface CreateReportResponse {
 export interface Asset {
   // The asset will be persisted in Sauce Labs with the given filename.
   filename: string;
+  // The asset local path.
+  path?: string;
   // The data backing the file.
   data: stream.Readable;
 }
