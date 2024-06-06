@@ -4,14 +4,14 @@
 
 ```javascript
 const job = await client.createReport({
-  name: "My Fancy Selenium Job!",
+  name: 'My Fancy Selenium Job!',
   passed: true,
   startTime: new Date().toISOString(),
   endTime: new Date().toISOString(),
-  browserName: "Chrome",
-  browserVersion: "105",
-  framework: "webdriver",
-  platformName: "Windows 11"
+  browserName: 'Chrome',
+  browserVersion: '105',
+  framework: 'webdriver',
+  platformName: 'Windows 11',
 });
 
 console.log(job.id); // the job ID
@@ -20,7 +20,7 @@ console.log(job.url); // the full URL of the job
 
 ## Upload Log
 
-In order to view your test results in the SauceLabs web app, you must upload a test report file along with the report created in the step above. 
+In order to view your test results in the SauceLabs web app, you must upload a test report file along with the report created in the step above.
 
 The minimum `log.json` file to populate the command list on Sauce Labs web UI:
 
@@ -28,15 +28,9 @@ The minimum `log.json` file to populate the command list on Sauce Labs web UI:
 [
   {
     "screenshot": null,
-    "suggestion_values": [
- 
-    ],
-    "request": {
-
-    },
-    "result": {
-
-    },
+    "suggestion_values": [],
+    "request": {},
+    "result": {},
     "path": "element",
     "HTTPStatus": 200,
     "method": "POST",
@@ -48,13 +42,12 @@ The minimum `log.json` file to populate the command list on Sauce Labs web UI:
 To upload `log.json`:
 
 ```javascript
-const uploads = await client.uploadAssets(
-  job.id,
-  [{
-    filename: "log.json",
-    data: fs.createReadStream("log.json")
-  }]
-);
+const uploads = await client.uploadAssets(job.id, [
+  {
+    filename: 'log.json',
+    data: fs.createReadStream('log.json'),
+  },
+]);
 // Upon success, the array `uploads.uploaded` will equal in length to the number of assets you intended to upload.
 // Individual assets that fail to upload will be reported via `uploads.errors`.
 ```

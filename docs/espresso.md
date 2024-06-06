@@ -4,14 +4,14 @@
 
 ```javascript
 const job = await client.createReport({
-  name: "My Fancy Espresso Job!",
+  name: 'My Fancy Espresso Job!',
   passed: true,
   startTime: new Date().toISOString(),
   endTime: new Date().toISOString(),
-  framework: "espresso",
-  platformName: "Linux",
-  deviceName: "Android GoogleAPI Emulator",
-  platformVersion: "12.0."
+  framework: 'espresso',
+  platformName: 'Linux',
+  deviceName: 'Android GoogleAPI Emulator',
+  platformVersion: '12.0.',
 });
 
 console.log(job.id); // the job ID
@@ -26,9 +26,7 @@ The minimum `native-log.json` file to populate the command list on Sauce Labs we
 
 ```json
 {
-  "filters": [
-    
-  ],
+  "filters": [],
   "package_name": "com.saucelabs.mydemoapp.android",
   "status": "success",
   "stdout": "I am output",
@@ -49,13 +47,12 @@ The minimum `native-log.json` file to populate the command list on Sauce Labs we
 To upload `native-log.json`:
 
 ```javascript
-const uploads = await client.uploadAssets(
-  job.id,
-  [{
-    filename: "native-log.json",
-    data: fs.createReadStream("native-log.json")
-  }]
-);
+const uploads = await client.uploadAssets(job.id, [
+  {
+    filename: 'native-log.json',
+    data: fs.createReadStream('native-log.json'),
+  },
+]);
 // Upon success, the array `uploads.uploaded` will equal in length to the number of assets you intended to upload.
 // Individual assets that fail to upload will be reported via `uploads.errors`.
 ```
