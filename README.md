@@ -5,6 +5,7 @@ Sauce Labs SDK for the Test-Composer API.
 # Usage
 
 ## Initialize TestComposer Client
+
 ```javascript
 const { TestComposer } = require('@saucelabs/testcomposer');
 
@@ -12,7 +13,7 @@ const client = new TestComposer({
   region: 'us-west-1',
   username: process.env.SAUCE_USERNAME,
   accessKey: process.env.SAUCE_ACCESS_KEY,
-  headers: {'User-Agent': `your-fancy-reporter/1.2.3`}
+  headers: { 'User-Agent': `your-fancy-reporter/1.2.3` },
 });
 ```
 
@@ -20,15 +21,15 @@ const client = new TestComposer({
 
 ```javascript
 const job = await client.createReport({
-  name: "My Fancy Job!",
+  name: 'My Fancy Job!',
   passed: true,
   startTime: new Date().toISOString(),
   endTime: new Date().toISOString(),
-  browserName: "Chrome",
-  browserVersion: "105",
-  framework: "playwright",
-  frameworkVersion: "1.25.0",
-  platformName: "Windows 11"
+  browserName: 'Chrome',
+  browserVersion: '105',
+  framework: 'playwright',
+  frameworkVersion: '1.25.0',
+  platformName: 'Windows 11',
 });
 console.log(job.id); // the job ID
 console.log(job.url); // the full URL of the job
@@ -44,7 +45,9 @@ const Readable = require('stream').Readable;
 const s = new Readable();
 s.push('hello!');
 s.push(null);
-const uploads = await client.uploadAssets(job.id, [{filename: "console.log", data: s}]);
+const uploads = await client.uploadAssets(job.id, [
+  { filename: 'console.log', data: s },
+]);
 ```
 
 ## Explore More Examples
