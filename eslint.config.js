@@ -13,6 +13,7 @@ module.exports = ts.config(
     },
     rules: {
       'no-undef': 'warn',
+      '@typescript-eslint/no-var-requires': 'off',
     },
   },
   {

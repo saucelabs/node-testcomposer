@@ -1,6 +1,6 @@
-import { TestComposer } from '../../src/index';
-import { createReadStream } from 'fs';
-import { Readable } from 'stream';
+const { TestComposer } = require('../../src/index');
+const fs = require('fs');
+const Readable = require('stream').Readable;
 
 let client;
 
@@ -153,7 +153,7 @@ test('creating Espresso reports', async () => {
   }`);
   nativeLog.push(null);
 
-  const screenshot = createReadStream(
+  const screenshot = fs.createReadStream(
     './tests/integration/fixtures/1693247987161_screenshot_first.png',
   );
 
