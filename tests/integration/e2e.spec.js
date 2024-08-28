@@ -6,7 +6,9 @@ let client;
 
 beforeAll(() => {
   // Set your credentials!
+  // eslint-disable-next-line jest/no-standalone-expect
   expect(process.env.SAUCE_USERNAME).toBeDefined();
+  // eslint-disable-next-line jest/no-standalone-expect
   expect(process.env.SAUCE_ACCESS_KEY).toBeDefined();
 
   client = new TestComposer({
