@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import FormData from 'form-data';
 import * as stream from 'stream';
 
 // The Sauce Labs region.
@@ -115,7 +114,9 @@ export class TestComposer {
   async uploadAssets(jobId: string, assets: Asset[]) {
     const form = new FormData();
     for (const asset of assets) {
-      form.append('file', asset.data, { filename: asset.filename });
+      const data = new Response(asset.data);
+      const blob = await data.blob();
+      form.append('file', blob, asset.filename);
     }
 
     const resp = await axios.put(
