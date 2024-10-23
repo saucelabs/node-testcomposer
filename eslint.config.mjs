@@ -1,25 +1,25 @@
-import ts from 'typescript-eslint';
-import js from '@eslint/js';
-import prettier from 'eslint-config-prettier';
-import jest from 'eslint-plugin-jest';
+import ts from "typescript-eslint";
+import js from "@eslint/js";
+import prettier from "eslint-config-prettier";
+import jest from "eslint-plugin-jest";
 
 export default ts.config(
   js.configs.recommended,
   ...ts.configs.recommended,
   prettier,
   {
-    ignores: ['lib/**'],
+    ignores: ["lib/**"],
   },
   {
-    files: ['**/*.*js', '**/*.*ts'],
+    files: ["**/*.*js", "**/*.*ts"],
     rules: {
-      '@typescript-eslint/no-var-requires': 'off',
-      '@typescript-eslint/no-require-imports': 'warn',
+      "@typescript-eslint/no-var-requires": "off",
+      "@typescript-eslint/no-require-imports": "warn",
     },
   },
   {
-    files: ['tests/**/*.*js', 'tests/**/*.*ts'],
-    ...jest.configs['flat/recommended'],
+    files: ["tests/**/*.*js", "tests/**/*.*ts"],
+    ...jest.configs["flat/recommended"],
   },
   {
     languageOptions: {

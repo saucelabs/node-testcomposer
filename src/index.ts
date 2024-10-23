@@ -1,21 +1,21 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import * as stream from 'stream';
+import axios, { AxiosRequestConfig } from "axios";
+import * as stream from "stream";
 
 // The Sauce Labs region.
-export type Region = 'us-west-1' | 'us-east-4' | 'eu-central-1' | 'staging';
+export type Region = "us-west-1" | "us-east-4" | "eu-central-1" | "staging";
 
 const apiURLMap = new Map<Region, string>([
-  ['us-west-1', 'https://api.us-west-1.saucelabs.com/v1/testcomposer'],
-  ['us-east-4', 'https://api.us-east-4.saucelabs.com/v1/testcomposer'],
-  ['eu-central-1', 'https://api.eu-central-1.saucelabs.com/v1/testcomposer'],
-  ['staging', 'https://api.staging.saucelabs.net/v1/testcomposer'],
+  ["us-west-1", "https://api.us-west-1.saucelabs.com/v1/testcomposer"],
+  ["us-east-4", "https://api.us-east-4.saucelabs.com/v1/testcomposer"],
+  ["eu-central-1", "https://api.eu-central-1.saucelabs.com/v1/testcomposer"],
+  ["staging", "https://api.staging.saucelabs.net/v1/testcomposer"],
 ]);
 
 const appURLMap = new Map<Region, string>([
-  ['us-west-1', 'https://app.saucelabs.com'],
-  ['us-east-4', 'https://app.us-east-4.saucelabs.com'],
-  ['eu-central-1', 'https://app.eu-central-1.saucelabs.com'],
-  ['staging', 'https://app.staging.saucelabs.net'],
+  ["us-west-1", "https://app.saucelabs.com"],
+  ["us-east-4", "https://app.us-east-4.saucelabs.com"],
+  ["eu-central-1", "https://app.eu-central-1.saucelabs.com"],
+  ["staging", "https://app.staging.saucelabs.net"],
 ]);
 
 export interface Options {
@@ -84,7 +84,7 @@ export class TestComposer {
   constructor(opts: Options) {
     this.opts = opts;
     this.url =
-      apiURLMap.get(opts.region) || (apiURLMap.get('us-west-1') as string);
+      apiURLMap.get(opts.region) || (apiURLMap.get("us-west-1") as string);
     this.requestConfig = {
       auth: { username: this.opts.username, password: this.opts.accessKey },
       headers: opts.headers,
@@ -97,13 +97,13 @@ export class TestComposer {
    */
   async createReport(req: CreateReportRequest) {
     const resp = await axios.post(
-      this.url + '/reports',
+      this.url + "/reports",
       req,
       this.requestConfig,
     );
 
     const id = (resp.data as CreateReportResponse).ID;
-    return { id: id, url: appURLMap.get(this.opts.region) + '/tests/' + id };
+    return { id: id, url: appURLMap.get(this.opts.region) + "/tests/" + id };
   }
 
   /**
@@ -116,7 +116,7 @@ export class TestComposer {
     for (const asset of assets) {
       const data = new Response(asset.data);
       const blob = await data.blob();
-      form.append('file', blob, asset.filename);
+      form.append("file", blob, asset.filename);
     }
 
     const resp = await axios.put(
