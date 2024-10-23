@@ -1,8 +1,9 @@
+/** @type {import('jest').Config} */
 module.exports = {
-  preset: 'ts-jest',
+  clearMocks: true,
+  coverageProvider: 'v8',
   testEnvironment: 'node',
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
 };
