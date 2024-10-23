@@ -13,7 +13,6 @@ export default ts.config(
   {
     files: ["**/*.*js", "**/*.*ts"],
     rules: {
-      "@typescript-eslint/no-var-requires": "off",
       "@typescript-eslint/no-require-imports": "warn",
     },
   },
